@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/happyscore_income.csv"
+  },
+  "mark": "rect",
+  "title": "Average income vs Happiness Score",
+  "width": 750,
+  "height": 500,
+  "params": [
+    {
+      "name": "happy_filter",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 7.5,
+        "step": 0.5,
+        "name": "Minimum happiness score: "
+      }
+    },
+    {
+      "name": "income_filter",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 27000,
+        "step": 1000,
+        "name": "Minimum average income: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum.avg_income > income_filter"},
+    {"filter": "datum.happyScore > happy_filter"}
+  ],
+  "encoding": {
+    "x": {
+      "bin": {"maxbins": 60},
+      "field": "happyScore",
+      "type": "quantitative",
+      "title": "Happiness Score"
+    },
+    "y": {
+      "bin": {"maxbins": 40},
+      "field": "avg_income",
+      "type": "quantitative",
+      "title": "Average Income"
+    },
+    "color": {"field": "country"},
+    "tooltip": [
+      {"field": "country", "type": "nominal", "title": "Country"},
+      {
+        "field": "avg_income",
+        "type": "quantitative",
+        "title": "Average Income in $"
+      },
+      {
+        "field": "happyScore",
+        "type": "quantitative",
+        "title": "Happiness Score"
+      }
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {
+      "labelFont": "monospace",
+      "titleFont": "monospace",
+      "titleFontSize": 15
+    },
+    "legend": {
+      "labelFont": "monospace",
+      "titleFont": "monospace",
+      "labelFontSize": 15
+    },
+    "header": {"labelFont": "monospace", "titleFont": "monospace"},
+    "mark": {"font": "monospace", "fontSize": 20},
+    "title": {"font": "monospace", "subtitleFont": "monospace"}
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 1000,
+  "height": 750,
+  "title": "How much is happiness affected by Healthcare",
+  "data": {
+    "url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/2016.csv"
+  },
+  "mark": "circle",
+  "params": [
+    {
+      "name": "Region",
+      "select": {"type": "point", "fields": ["Region"]},
+      "bind": "legend"
+    },
+    {
+      "name": "Region_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Australia and New Zealand",
+          "Southern Asia",
+          "Southeastern Asia",
+          "Middle East and Northern Africa",
+          "Sub-Saharan Africa",
+          "Central and Eastern Europe",
+          "Western Europe",
+          "North America",
+          "Latin America and Caribbean"
+        ],
+        "labels": [
+          "Show All",
+          "Australia and New Zealand",
+          "Southern Asia",
+          "Southeastern Asia",
+          "Middle East and Northern Africa",
+          "Sub-Saharan Africa",
+          "Central and Eastern Europe",
+          "Western Europe",
+          "North America",
+          "Latin America and Caribbean"
+        ],
+        "name": "Region Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "Region_selection == null || datum.Region == Region_selection"}
+  ],
+  "encoding": {
+    "x": {
+      "field": "HappinessScore",
+      "type": "quantitative",
+      "title": "Happiness Score",
+      "axis": {"tickCount": 6},
+      "scale": {"type": "linear", "domain": [1, 10]}
+    },
+    "y": {
+      "field": "Health",
+      "title": "Healthcare quality",
+      "type": "quantitative",
+      "axis": {"tickCount": 6},
+      "scale": {"type": "linear", "domain": [0, 1]}
+    },
+    "color": {"field": "Region", "type": "nominal"},
+    "size": {"value": 40},
+    "tooltip": [
+      {"field": "Country", "type": "nominal"},
+      {"field": "Region", "type": "nominal"},
+      {
+        "field": "HappinessScore",
+        "type": "quantitative",
+        "title": "Happiness Score"
+      },
+      {
+        "field": "HappinessRank",
+        "type": "quantitative",
+        "title": "Happiness Rank"
+      },
+      {"field": "Health", "type": "quantitative"}
+    ],
+    "opacity": {"condition": {"param": "Region", "value": 1}, "value": 0.1}
+  },
+  "config": {
+    "axis": {
+      "labelFont": "monospace",
+      "titleFont": "monospace",
+      "titleFontSize": 15
+    },
+    "legend": {
+      "labelFont": "monospace",
+      "titleFont": "monospace",
+      "labelFontSize": 15
+    },
+    "header": {"labelFont": "monospace", "titleFont": "monospace"},
+    "mark": {"font": "monospace", "fontSize": 20},
+    "title": {"font": "monospace", "subtitleFont": "monospace"}
+  }
+}

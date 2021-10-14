@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "World Happiness in 2016",
+  "width": 800,
+  "height": 600,
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/customgeo.topojson",
+        "format": {"type": "topojson", "feature": "custom.geo"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/2016.csv"
+            },
+            "key": "Country",
+            "fields": [
+              "HappinessRank",
+              "HappinessScore",
+              "LowerConfidenceInterval",
+              "UpperConfidenceInterval"
+            ]
+          }
+        },
+        {"calculate": "datum.HappinessRank", "as": "Happiness Rank"},
+        {"calculate": "datum.HappinessScore", "as": "Happiness Score"},
+        {
+          "calculate": "datum.LowerConfidenceInterval",
+          "as": "Lower Confidence Interval"
+        },
+        {
+          "calculate": "datum.UpperConfidenceInterval",
+          "as": "Upper Confidence Interval"
+        }
+      ],
+      "projection": {"type": "equalEarth"},
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "field": "Happiness Rank",
+          "type": "quantitative",
+          "scale": {"scheme": "reds"}
+        },
+        "tooltip": [
+          {"field": "properties.name", "type": "nominal", "title": "Country"},
+          {"field": "Happiness Rank", "type": "quantitative"},
+          {"field": "Happiness Score", "type": "quantitative"},
+          {"field": "Lower Confidence Interval", "type": "quantitative"},
+          {"field": "Upper Confidence Interval", "type": "quantitative"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "header": {"labelFont": "monospace", "titleFont": "monospace"},
+    "mark": {"font": "monospace", "fontSize": 20},
+    "title": {"font": "monospace", "subtitleFont": "monospace"}
+  }
+}

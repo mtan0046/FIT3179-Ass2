@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Correlation between happiness and freedom",
+  "width": 1000,
+  "data": {
+    "url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/2016.csv"
+  },
+  "mark": "bar",
+  "params": [
+    {
+      "name": "freedom_filter",
+      "value": 0.5,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 0.6,
+        "step": 0.05,
+        "name": "Minimum Correlation: "
+      }
+    }
+  ],
+  "transform": [{"filter": "datum.Freedom > freedom_filter"}],
+  "encoding": {
+    "y": {"field": "Country", "type": "ordinal", "sort": "-x"},
+    "x": {"aggregate": "sum", "field": "Freedom", "title": "Freedom"},
+    "color": {"value": "#f98e1d"},
+    "tooltip": [
+      {"field": "Country", "type": "nominal"},
+      {"field": "Region", "type": "nominal"},
+      {
+        "field": "HappinessScore",
+        "type": "quantitative",
+        "title": "Happiness Score"
+      },
+      {
+        "field": "HappinessRank",
+        "type": "quantitative",
+        "title": "Happiness Rank"
+      },
+      {"field": "Freedom", "type": "quantitative"}
+    ]
+  },
+  "config": {
+    "axis": {
+      "labelFont": "monospace",
+      "titleFont": "monospace",
+      "titleFontSize": 15,
+      "labelFontSize": 13
+    },
+    "legend": {
+      "labelFont": "monospace",
+      "titleFont": "monospace",
+      "labelFontSize": 15
+    },
+    "header": {"labelFont": "monospace", "titleFont": "monospace"},
+    "mark": {"font": "monospace", "fontSize": 20},
+    "title": {"font": "monospace", "subtitleFont": "monospace"}
+  }
+}
