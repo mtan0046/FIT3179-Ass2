@@ -1,14 +1,17 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {
-    "url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/happyscore_income.csv"
-  },
+  "data": {"url": "https://raw.githubusercontent.com/mtan0046/FIT3179-Ass2/main/happyscore_income.csv"},
   "mark": "rect",
   "title": "Average income vs Happiness Score",
   "width": 750,
   "height": 500,
-  "params": [
+    "params": [
     {
+      "name": "country",
+      "select": {"type": "point", "fields": ["country"]},
+      "bind": "legend"
+    },
+   {
       "name": "happy_filter",
       "value": 0,
       "bind": {
@@ -31,13 +34,12 @@
       }
     }
   ],
-  "transform": [
-    {"filter": "datum.avg_income > income_filter"},
-    {"filter": "datum.happyScore > happy_filter"}
+  "transform": [{"filter": "datum.avg_income > income_filter"},
+  {"filter": "datum.happyScore > happy_filter"}
   ],
   "encoding": {
     "x": {
-      "bin": {"maxbins": 60},
+      "bin": {"maxbins":60},
       "field": "happyScore",
       "type": "quantitative",
       "title": "Happiness Score"
@@ -48,23 +50,22 @@
       "type": "quantitative",
       "title": "Average Income"
     },
-    "color": {"field": "country"},
-    "tooltip": [
+    "color": {
+      "field": "country",
+      "title": "Country"
+    },
+      "tooltip": [
       {"field": "country", "type": "nominal", "title": "Country"},
-      {
-        "field": "avg_income",
-        "type": "quantitative",
-        "title": "Average Income in $"
-      },
-      {
-        "field": "happyScore",
-        "type": "quantitative",
-        "title": "Happiness Score"
-      }
-    ]
+      {"field": "avg_income", "type": "quantitative", "title": "Average Income in $"},
+      {"field": "happyScore", "type": "quantitative", "title": "Happiness Score"}
+    ],
+    "opacity": {"condition": {"param": "country", "value": 1}, "value": 0.1}
   },
   "config": {
-    "view": {"stroke": "transparent"},
+    "view": {
+      "stroke": "transparent"
+    }
+    ,
     "axis": {
       "labelFont": "monospace",
       "titleFont": "monospace",
