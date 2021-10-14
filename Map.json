@@ -57,6 +57,5 @@
   "config": {
     "header": {"labelFont": "monospace", "titleFont": "monospace"},
     "mark": {"font": "monospace", "fontSize": 20},
-    "title": {"font": "monospace", "subtitleFont": "monospace"}
-  }
+    "title": {"font": "monospace", "subtitleFont": "monospace", "fontSize": 25}}
 }
