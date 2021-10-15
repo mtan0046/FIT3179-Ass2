@@ -9,8 +9,8 @@
   "height": 750,
   "params": [
     {
-      "name": "country",
-      "select": {"type": "point", "fields": ["country"]},
+      "name": "region",
+      "select": {"type": "point", "fields": ["region"]},
       "bind": "legend"
     },
     {
@@ -71,7 +71,7 @@
         "title": "Happiness Score"
       }
     ],
-    "opacity": {"condition": {"param": "country", "value": 1}, "value": 0.1}
+    "opacity": {"condition": {"param": "region", "value": 1}, "value": 0.1}
   },
   "config": {
     "view": {"stroke": "transparent"},
